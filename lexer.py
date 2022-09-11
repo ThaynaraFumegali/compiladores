@@ -30,7 +30,7 @@ class Lexer:
         tokens = []
 
         while self.current_char != None:              # Enquanto ainda tem texto para ler
-            if self.current_char in ' \t':                # Se o caracter lido for espaço ou tab, ele apenas avança para o próximo
+            if self.current_char in ' \t\r':                # Se o caracter lido for espaço ou tab, ele apenas avança para o próximo
                 self.advance()
             elif self.current_char in LETTERS:             # Se o caracter lido for um dígito (0123456789), ele chama um método responsável por verificar o número, se possui ponto decimal, mais de um caracter e etc
                 identifier = self.generate_identifier()
