@@ -25,7 +25,7 @@ expressions = [
     ("1 - 2", 1 - 2),
     ("3 - ((8 + 3) * -2)", 3 - ((8 + 3) * -2)),
     ("2*3*4", 2 * 3 * 4),
-    ("2 + 3 + 4 * 3 * 2 + 2", 2 + 3 + 4 * 3 * 2 * 2),
+    ("2 + 3 + 4 * 3 * 2 * 2", 2 + 3 + 4 * 3 * 2 * 2),
     ("10 + 11", 10 + 11),
 ]
 
@@ -46,8 +46,9 @@ while (True):
                 tree = parser.parse()
                 interpreter = Interpreter()
                 result = interpreter.callNodeMethod(tree, symbol_table)
-                pass_result = "PASS" if result == float(expected) else "FAIL"
-                print(f"Expression: {expression} - {pass_result} - {result} - {float(expected)}")
+                pass_result = "PASS" if result.value == float(expected) else "FAIL"
+                print(f"Expression: {expression} - {pass_result} - {type(result.value)}: {result.value} - {type(float(expected))}: {float(expected)}")
+        exit()
     elif opcao == '2':
         os.system('CLS')
         print("Input manual de expressões:\n\n")
