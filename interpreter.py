@@ -1,11 +1,11 @@
 import math
-from errors import Error
 from nodes import *
 from tokens import TokenType
 
 
 class Interpreter:
     def callNodeMethod(self, node, symbol_table):
+
         if type(node) == NumberNode:
             number = Value(node.token.value)
             number.set_position_value(node.start_position, node.end_position)
@@ -15,7 +15,7 @@ class Interpreter:
             value = symbol_table.get(variable_name)
 
             if not value:
-                raise Exception(f'Variável {variable_name} não definida')
+                raise Exception(f"\n\n#####################\n\nErro de tempo de execução: Variável {variable_name} não definida.\nLinha {node.start_position.line + 1}, coluna: {node.start_position.column + 1}\n\n####################\n\n")
 
             return value
         elif type(node) == VariableAssignNode:
@@ -38,12 +38,8 @@ class Interpreter:
                 result = left_node.div(right_node)
             elif node.operation_token.type == TokenType().POWER:
                 result = left_node.power(right_node)
-
-            if type(result) == Error:
-                return result
-            else:
-                result.set_position_value(node.start_position, node.end_position)
-                return result
+            result.set_position_value(node.start_position, node.end_position)
+            return result
         elif type(node) == UnaryOperationNode:
             number = self.callNodeMethod(node.node, symbol_table)
 
@@ -57,8 +53,6 @@ class Interpreter:
             result = number.sqrt(number)
             result.set_position_value(node.start_position, node.end_position)
             return result
-        else:
-            raise Exception(f'{node}')
 
 
 class Value:
@@ -85,7 +79,7 @@ class Value:
     def div(self, number):
         if isinstance(number, Value):
             if number.value == 0:
-                return Error(number.start_position, number.end_position, "Erro em tempo de execução", 'Divisão por zero')
+                raise Exception(f"\n\n#####################\n\nErro de tempo de execução: Divisão por zero.\nLinha {number.start_position.line + 1}, coluna: {number.start_position.column + 1}\n\n####################\n\n")
             return Value(self.value / number.value)
 
     def power(self, number):

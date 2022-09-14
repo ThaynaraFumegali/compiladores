@@ -38,16 +38,13 @@ while (True):
         print("Pré-seleção de expressões:\n\n")
         for expression, expected in expressions:
             lexer = Lexer(str(expression))
-            tokens, error = lexer.generate_tokens()
-            if error:
-                print(error)
-            else:
-                parser = Parser(tokens, symbol_table)
-                tree = parser.parse()
-                interpreter = Interpreter()
-                result = interpreter.callNodeMethod(tree, symbol_table)
-                pass_result = "PASS" if result.value == float(expected) else "FAIL"
-                print(f"Expression: {expression} - {pass_result} - {type(result.value)}: {result.value} - {type(float(expected))}: {float(expected)}")
+            tokens = lexer.generate_tokens()
+            parser = Parser(tokens, symbol_table)
+            tree = parser.parse()
+            interpreter = Interpreter()
+            result = interpreter.callNodeMethod(tree, symbol_table)
+            pass_result = "Sim" if result.value == float(expected) else "Não"
+            print(f"Expressão: {expression} - Resultado esperado: {float(expected)} - Resultado encontrado: {result.value} - Passou? {pass_result}")
         exit()
     elif opcao == '2':
         os.system('CLS')
@@ -55,15 +52,12 @@ while (True):
         while (True):
             expression = input('input > ')
             lexer = Lexer(str(expression))
-            tokens, error = lexer.generate_tokens()
-            if error:
-                print(error)
-            else:
-                parser = Parser(tokens, symbol_table)
-                tree = parser.parse()
-                interpreter = Interpreter()
-                result = interpreter.callNodeMethod(tree, symbol_table)
-                print(f"Expressão: {expression} - Resultado: {result}")
+            tokens = lexer.generate_tokens()
+            parser = Parser(tokens, symbol_table)
+            tree = parser.parse()
+            interpreter = Interpreter()
+            result = interpreter.callNodeMethod(tree, symbol_table)
+            print(f"Expressão: {expression} - Resultado: {result}")
     elif opcao == '0':
         exit()
     else:

@@ -1,7 +1,6 @@
 from lib2to3.pgen2 import token
 import string
 from tokens import Token, TokenType
-from errors import Error
 from position import Position
 
 DIGITS = '0123456789'
@@ -66,10 +65,10 @@ class Lexer:
                 start_position = self.position.position_copy()
                 char = self.current_char
                 self.advance()
-                return [], Error(start_position, self.position, "Caracter inválido", f"'{char}'")
+                return []
 
         tokens.append(Token(TokenType().EOF, start_position=self.position))
-        return tokens, None
+        return tokens
 
     def generate_number(self):                      # Método: responsável por verificar os números e gerar o token de número
         number_string = ''                            # inicialmente o número ainda em texto é vazio
