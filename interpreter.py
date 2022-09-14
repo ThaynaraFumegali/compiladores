@@ -15,7 +15,7 @@ class Interpreter:
             value = symbol_table.get(variable_name)
 
             if not value:
-                raise Exception(f"\n\n#####################\n\nErro de tempo de execução: Variável {variable_name} não definida.\nLinha {node.start_position.line + 1}, coluna: {node.start_position.column + 1}\n\n####################\n\n")
+                raise Exception(f"\n\n#####################\n\nErro de tempo de execução: Variável {variable_name} não definida.\nLinha {node.start_position.line + 1}, coluna: {node.start_position.column + 1}\n\n#####################\n\n")
 
             return value
         elif type(node) == VariableAssignNode:
@@ -79,7 +79,7 @@ class Value:
     def div(self, number):
         if isinstance(number, Value):
             if number.value == 0:
-                raise Exception(f"\n\n#####################\n\nErro de tempo de execução: Divisão por zero.\nLinha {number.start_position.line + 1}, coluna: {number.start_position.column + 1}\n\n####################\n\n")
+                raise Exception(f"\n\n#####################\n\nErro de tempo de execução: Divisão por zero.\nLinha {number.start_position.line + 1}, coluna: {number.start_position.column + 1}\n\n#####################\n\n")
             return Value(self.value / number.value)
 
     def power(self, number):

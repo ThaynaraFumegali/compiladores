@@ -19,7 +19,7 @@ class Parser:
         result = self.expression()
 
         if self.current_token.type != TokenType().EOF:
-            raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado '+', '-', '*', '/' ou '^'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n####################\n\n")
+            raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado '+', '-', '*', '/' ou '^'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n#####################\n\n")
         return result
 
     def atom(self):
@@ -45,9 +45,9 @@ class Parser:
                 self.advance()
                 return expression
             else:
-                raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado um ')'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n####################\n\n")
+                raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado um ')'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n#####################\n\n")
 
-        raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado número, '+' ou '-'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n####################\n\n")
+        raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado número, '+' ou '-'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n#####################\n\n")
 
     def sqrt_expression(self):
         self.advance()
@@ -60,7 +60,7 @@ class Parser:
                 self.advance()
                 return SqrtNode(expression)
             else:
-                raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado um ')'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n####################\n\n")
+                raise Exception(f"\n\n#####################\n\nErro de sintaxe: Esperado um ')'.\nLinha {self.current_token.start_position.line + 1}, coluna: {self.current_token.start_position.column + 1}\n\n#####################\n\n")
 
     def power(self):
         return self.binary_operation(self.atom, (TokenType().POWER), self.factor)
